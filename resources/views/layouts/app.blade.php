@@ -118,7 +118,7 @@
             <!-- FOOTER MINI -->
             <footer class="footer footer-center p-4 bg-base-100 text-base-content/60 text-xs border-t border-gray-100">
                 <aside>
-                    <p>© {{ date('Y') }} LMS Sekolah - Sistem Manajemen Pembelajaran Terpadu</p>
+                    <p>© {{ date('Y') }} LMS Sekolah - Sistem Manajemen Pembelajaran Terpadu - Uzumaki Jeglar - </p>
                 </aside>
             </footer>
         </div> 
