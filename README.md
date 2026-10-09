@@ -29,18 +29,6 @@ In addition, [Laracasts](https://laracasts.com) contains thousands of video tuto
 
 You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
 ## Contributing
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
@@ -56,3 +44,28 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## How To Install
+
+jalankan 
+```bash
+php artisan migrate
+
+php artisan storage:link
+
+```
+Ubah file .env sesuaikan dengan database yang akan di gunakan. dalam projek ini menggunakan mysql dengan nama database mylsm2
+
+## Requirement
+
+Dalam projek ini menggunakan :
+
+Nodejs versi v22.19.0
+
+NPM 10.9.3
+
+PHP 8.5.0
+
+Laravel 13 
+
+Composer version 2.8.12
