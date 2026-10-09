@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login - LMS Sekolah</title>
+    <title>Login - LMS SDMM</title>
 
     <!-- Tailwind CSS & DaisyUI via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
@@ -44,7 +44,7 @@
                 <!-- Input Username -->
                 <div class="form-control mb-4">
                     <label class="label">
-                        <span class="label-text font-bold text-gray-700">Username / NIS / NIP</span>
+                        <span class="label-text font-bold text-gray-700">Username</span>
                     </label>
                     <label class="input input-bordered flex items-center gap-3 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
                         <i class="fas fa-user text-gray-400"></i>
@@ -74,7 +74,7 @@
             <!-- Footer Form -->
             <div class="text-center border-t border-gray-100 pt-4">
                 <p class="text-xs text-gray-400 font-medium tracking-wide">
-                    &copy; {{ date('Y') }} LMS SEKOLAH
+                    &copy; {{ date('Y') }} Learning Management System SDMM
                 </p>
             </div>
 

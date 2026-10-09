@@ -28,11 +28,17 @@
                             <td class="font-bold text-primary">{{ $materi->judul }}</td>
                             <td>{{ $materi->mataPelajaran->nama }}</td>
                             <td><span class="badge badge-outline">{{ $materi->kelas->nama_kelas }}</span></td>
-                            <td class="text-center whitespace-nowrap">
+                            <td class="text-center whitespace-nowrap flex justify-center gap-2 items-center">
+                                {{-- class="text-center flex justify-center gap-2 items-center" --}}
                                 @if($materi->file_path)
-                                    <a href="{{ asset('storage/' . $materi->file_path) }}" target="_blank" class="btn btn-xs btn-info tooltip" data-tip="Unduh"><i class="fas fa-download"></i></a>
+                                <button class="btn btn-sm btn-info tooltip" data-tip="Unduh">
+                                    <a href="{{ asset('storage/' . $materi->file_path) }}" target="_blank" class="text-white"><i class="fas fa-download"></i></a>
+                                </button>
+
                                 @endif
-                                <a href="{{ route('teacher.kelas.show', $materi->kelas_id) }}" class="btn btn-xs btn-primary btn-outline tooltip" data-tip="Buka Kelas"><i class="fas fa-door-open"></i></a>
+                                <button class="btn btn-sm btn-info tooltip" data-tip="Buka Kelas">     
+                                <a href="{{ route('teacher.kelas.show', $materi->kelas_id) }}" class="text-white" ><i class="fas fa-door-open"></i></a>
+                                </button>
                             </td>
                         </tr>
                     @empty

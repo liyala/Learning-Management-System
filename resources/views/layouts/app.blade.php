@@ -118,7 +118,7 @@
             <!-- FOOTER MINI -->
             <footer class="footer footer-center p-4 bg-base-100 text-base-content/60 text-xs border-t border-gray-100">
                 <aside>
-                    <p>© {{ date('Y') }} LMS Sekolah - Sistem Manajemen Pembelajaran Terpadu - Uzumaki Jeglar - </p>
+                    <p>© {{ date('Y') }} SDMM - Learning Management system </p>
                 </aside>
             </footer>
         </div> 
@@ -136,8 +136,8 @@
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <div>
-                            <h2 class="font-bold text-lg tracking-tight text-primary leading-tight">LMS Sekolah</h2>
-                            <p class="text-[11px] text-gray-400 font-medium tracking-wide">PORTAL PEMBELAJARAN</p>
+                            <h2 class="font-bold text-lg tracking-tight text-primary leading-tight">LMS SDMM</h2>
+                            <p class="text-[11px] text-gray-400 font-medium tracking-wide">Online Learning System By SDMM</p>
                         </div>
                     </div>
 
