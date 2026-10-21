@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-
+use App\Http\Controllers\ProfileController;
 Route::get('/', function () {
     if (Auth::check()) {
         $role = Auth::user()->role->name;
@@ -28,7 +28,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    
+    //Profile Route
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     // Rute Admin
         Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');

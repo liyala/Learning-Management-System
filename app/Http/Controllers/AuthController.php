@@ -25,13 +25,12 @@ class AuthController extends Controller
         ]);
 
         // Proses autentikasi
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            // Regenerate session untuk menghindari Session Fixation attack
-            $request->session()->regenerate();
-
-            // Redirect berdasarkan role
-            return $this->redirectBasedOnRole(Auth::user()->role->name);
-        }
+            if (Auth::attempt($credentials, $request->boolean('remember'))) {
+                $request->session()->regenerate();
+            
+                return $this->redirectBasedOnRole(Auth::user()->role->name)
+                    ->with('success', 'Berhasil login.');
+            }
 
         // Jika gagal login
         return back()->withErrors([
