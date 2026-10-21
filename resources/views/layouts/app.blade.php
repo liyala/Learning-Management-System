@@ -211,7 +211,7 @@
             </div>
         @endif
 
-        <!-- Pesan Error Custom -->
+       
         @if(session('error'))
             <div class="alert alert-error text-white shadow-xl flex gap-2 animate-[slideIn_0.3s_ease-out]">
                 <i class="fas fa-exclamation-triangle text-xl"></i>
@@ -219,7 +219,7 @@
             </div>
         @endif
 
-        <!-- Pesan Error Validasi Form -->
+        
         @if($errors->any())
             <div class="alert alert-warning shadow-xl flex flex-col items-start gap-1 animate-[slideIn_0.3s_ease-out]">
                 <div class="flex gap-2 items-center">
@@ -234,18 +234,16 @@
             </div>
         @endif
     </div>
-
-    <!-- SCRIPT OTOMATIS HILANG -->
     <script>
         // Script ini akan berjalan otomatis saat halaman dimuat
         setTimeout(() => {
             const alerts = document.querySelectorAll('.toast .alert');
             alerts.forEach(alert => {
-                alert.style.transition = "opacity 0.5s ease"; // Transisi halus
-                alert.style.opacity = "0"; // Memudarkan notifikasi
-                setTimeout(() => alert.remove(), 500); // Menghapus dari layar setelah pudar
+                alert.style.transition = "opacity 0.5s ease"; 
+                alert.style.opacity = "0"; 
+                setTimeout(() => alert.remove(), 500); 
             });
-        }, 4000); // 4000 = 4 detik notifikasi tampil sebelum hilang
+        }, 4000); //second
     </script>
 </body>
 </html>
