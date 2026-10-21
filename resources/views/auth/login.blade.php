@@ -6,12 +6,54 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login - LMS Sekolah</title>
 
+    <!-- Google Fonts: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS & DaisyUI via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Konfigurasi Tailwind untuk Font Nunito -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        /* Smooth scrolling & kustom scrollbar tipis */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Animasi dan rounding khusus Login (Child-friendly) */
+        .card-login {
+            border-radius: 1.5rem;
+            animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        @keyframes floatUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn, .input {
+            border-radius: 0.75rem;
+            font-weight: 700;
+        }
+        .btn { text-transform: none; }
+    </style>
 </head>
 <body class="bg-base-200 min-h-screen flex items-center justify-center p-4">
 
@@ -21,8 +63,9 @@
             
             <!-- Header & Logo -->
             <div class="text-center mb-8">
-                <div class="w-16 h-16 rounded-2xl bg-primary text-primary-content flex items-center justify-center font-black text-3xl shadow-lg mx-auto mb-4">
-                    <i class="fas fa-graduation-cap"></i>
+                <div class="w-20 h-20 rounded-2xl  text-primary-content flex items-center justify-center font-black text-3xl shadow-xl mx-auto mb-4">
+                    {{-- <i class="fas fa-graduation-cap"></i> --}}
+                    <img src="{{ asset('images/Logo-SDMM.png') }}" alt="Logo" class="w-18 h-18 object-contain">
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800">Selamat Datang</h2>
                 <p class="text-sm text-gray-500 mt-1">Silakan masuk ke portal pembelajaran Anda.</p>
@@ -44,7 +87,7 @@
                 <!-- Input Username -->
                 <div class="form-control mb-4">
                     <label class="label">
-                        <span class="label-text font-bold text-gray-700">Username / NIS / NIP</span>
+                        <span class="label-text font-bold text-gray-700">Username</span>
                     </label>
                     <label class="input input-bordered flex items-center gap-3 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
                         <i class="fas fa-user text-gray-400"></i>
@@ -74,7 +117,7 @@
             <!-- Footer Form -->
             <div class="text-center border-t border-gray-100 pt-4">
                 <p class="text-xs text-gray-400 font-medium tracking-wide">
-                    &copy; {{ date('Y') }} LMS SEKOLAH
+                    &copy; {{ date('Y') }} Learning Management System SDMM
                 </p>
             </div>
 

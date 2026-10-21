@@ -6,28 +6,65 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'LMS Sekolah') - Sistem Pembelajaran</title>
 
-    <!-- Tailwind CSS & DaisyUI via CDN (atau Vite jika menggunakan npm run dev) -->
+    <!-- Google Fonts: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS & DaisyUI via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Tailwind untuk Font Nunito -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <style>
         /* Smooth scrolling & kustom scrollbar tipis */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Efek Hover Melayang Khas Aplikasi Edukasi (Child-Friendly) */
+        .card {
+            transition: all 0.3s ease;
+            border-radius: 1.25rem;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
+        
+        /* Matikan efek hover card di sidebar agar tidak bergeser */
+        .drawer-side .card:hover { transform: none; box-shadow: none; }
+
+        /* Tombol yang lebih membulat dan empuk */
+        .btn {
+            border-radius: 0.75rem;
+            text-transform: none;
+            font-weight: 700;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        
+        /* Animasi masuk halaman */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -69,6 +106,11 @@
                                 <span class="text-xs text-primary font-semibold uppercase">{{ Auth::user()->role->name }}</span>
                             </li>
                             <li>
+                                <a href="{{ route('profile.index') }}" class="py-3 flex items-center gap-2">
+                                    <i class="fas fa-user-circle"></i> Profil Saya
+                                </a>
+                            </li>
+                            <li>
                                 <form action="{{ route('logout') }}" method="POST" class="w-full">
                                     @csrf
                                     <button type="submit" class="text-error flex items-center gap-2 w-full text-left py-2">
@@ -77,40 +119,14 @@
                                 </form>
                             </li>
                         </ul>
+                        
                     </div>
                 </div>
             </header>
 
             <!-- KONTEN UTAMA -->
             <main class="flex-1 p-3 md:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-                <!-- Global Flash Messages -->
-                @if(session('success'))
-                    <div role="alert" class="alert alert-success shadow-sm mb-4 text-sm md:text-base py-3">
-                        <i class="fas fa-check-circle"></i>
-                        <span>{{ session('success') }}</span>
-                    </div>
-                @endif
 
-                @if(session('error'))
-                    <div role="alert" class="alert alert-error text-white shadow-sm mb-4 text-sm md:text-base py-3">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>{{ session('error') }}</span>
-                    </div>
-                @endif
-
-                @if($errors->any())
-                    <div role="alert" class="alert alert-warning shadow-sm mb-4 text-sm py-3">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div>
-                            <span class="font-bold">Ada beberapa kesalahan input:</span>
-                            <ul class="list-disc list-inside mt-1 text-xs md:text-sm">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
 
                 @yield('content')
             </main>
@@ -118,7 +134,7 @@
             <!-- FOOTER MINI -->
             <footer class="footer footer-center p-4 bg-base-100 text-base-content/60 text-xs border-t border-gray-100">
                 <aside>
-                    <p>© {{ date('Y') }} LMS Sekolah - Sistem Manajemen Pembelajaran Terpadu - Uzumaki Jeglar - </p>
+                    <p>© {{ date('Y') }} SDMM - Learning Management system </p>
                 </aside>
             </footer>
         </div> 
@@ -132,12 +148,13 @@
                 <div>
                     <!-- Brand / Logo LMS -->
                     <div class="flex items-center gap-3 px-2 py-4 mb-4 border-b border-gray-100">
-                        <div class="w-10 h-10 rounded-xl bg-primary text-primary-content flex items-center justify-center font-black text-xl shadow">
-                            <i class="fas fa-graduation-cap"></i>
+                        <div class="w-15 h-15 rounded-xl -content flex items-center justify-center font-black text-xl shadow-xl">
+                            {{-- <i class="fas fa-graduation-cap"></i> --}}
+                            <img src="{{ asset('images/Logo-SDMM.png') }}" alt="Logo" class="w-12 h-12 object-contain">
                         </div>
                         <div>
-                            <h2 class="font-bold text-lg tracking-tight text-primary leading-tight">LMS Sekolah</h2>
-                            <p class="text-[11px] text-gray-400 font-medium tracking-wide">PORTAL PEMBELAJARAN</p>
+                            <h2 class="font-bold text-lg tracking-tight text-primary leading-tight">LMS SDMM</h2>
+                            <p class="text-[11px] text-gray-400 font-medium tracking-wide">Online Learning System By SDMM</p>
                         </div>
                     </div>
 
@@ -184,6 +201,51 @@
             </aside>
         </div>
     </div>
+<!-- TOAST NOTIFICATION MELAYANG -->
+    <div class="toast toast-top toast-end z-[9999] mt-16 md:mt-0">
+        <!-- Pesan Sukses -->
+        @if(session('success'))
+            <div class="alert alert-success text-white shadow-xl flex gap-2 animate-[slideIn_0.3s_ease-out]">
+                <i class="fas fa-check-circle text-xl"></i>
+                <span class="font-bold">{{ session('success') }}</span>
+            </div>
+        @endif
 
+        <!-- Pesan Error Custom -->
+        @if(session('error'))
+            <div class="alert alert-error text-white shadow-xl flex gap-2 animate-[slideIn_0.3s_ease-out]">
+                <i class="fas fa-exclamation-triangle text-xl"></i>
+                <span class="font-bold">{{ session('error') }}</span>
+            </div>
+        @endif
+
+        <!-- Pesan Error Validasi Form -->
+        @if($errors->any())
+            <div class="alert alert-warning shadow-xl flex flex-col items-start gap-1 animate-[slideIn_0.3s_ease-out]">
+                <div class="flex gap-2 items-center">
+                    <i class="fas fa-exclamation-circle text-xl"></i>
+                    <span class="font-bold text-sm">Ada beberapa kesalahan input:</span>
+                </div>
+                <ul class="list-disc list-inside text-xs mt-1">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
+
+    <!-- SCRIPT OTOMATIS HILANG -->
+    <script>
+        // Script ini akan berjalan otomatis saat halaman dimuat
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.toast .alert');
+            alerts.forEach(alert => {
+                alert.style.transition = "opacity 0.5s ease"; // Transisi halus
+                alert.style.opacity = "0"; // Memudarkan notifikasi
+                setTimeout(() => alert.remove(), 500); // Menghapus dari layar setelah pudar
+            });
+        }, 4000); // 4000 = 4 detik notifikasi tampil sebelum hilang
+    </script>
 </body>
 </html>

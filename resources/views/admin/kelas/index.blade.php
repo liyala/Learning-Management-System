@@ -43,11 +43,17 @@
                             <span class="badge badge-ghost badge-sm">Diarsipkan</span>
                         @endif
                     </td>
-                    <td class="text-center flex justify-center gap-2">
+                    <td class="text-center flex justify-center gap-2 items-center">
                         <!-- Tombol Anggota & Jadwal -->
-                        <a href="{{ route('admin.kelas.anggota.index', $kelas->id) }}" class="btn btn-sm btn-success text-white tooltip" data-tip="Anggota Kelas"><i class="fas fa-users"></i></a>
-                        <a href="{{ route('admin.kelas.jadwal.index', $kelas->id) }}" class="btn btn-sm btn-warning text-white tooltip" data-tip="Jadwal Pelajaran"><i class="fas fa-calendar-alt"></i></a>
                         
+                        <button class="btn btn-sm btn-success tooltip" data-tip="Anggota Kelas">
+                            <a href="{{ route('admin.kelas.anggota.index', $kelas->id) }}" class="text-white" ><i class="fas fa-users"></i></a>
+                        </button>
+
+                        <button  class="btn btn-sm btn-warning tooltip" data-tip="Jadwal Pelajaran">
+                        <a href="{{ route('admin.kelas.jadwal.index', $kelas->id) }}" class="text-white" ><i class="fas fa-calendar-alt"></i></a>
+                          </button>
+                          
                         <!-- Tombol Edit & Hapus (Sudah ada) -->
                         <a href="{{ route('admin.kelas.edit', $kelas->id) }}" class="btn btn-sm btn-info text-white"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('admin.kelas.destroy', $kelas->id) }}" method="POST" onsubmit="return confirm('Hapus kelas ini?');">

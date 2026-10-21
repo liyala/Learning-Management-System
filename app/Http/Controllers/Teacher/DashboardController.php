@@ -1,34 +1,52 @@
 <?php
 namespace App\Http\Controllers\Teacher;
-
 use App\Http\Controllers\Controller;
-use App\Models\Kelas;
+use App\Models\Materi;
+use App\Models\Tugas;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $teacherId = Auth::id();
+        $guruId = Auth::id();
 
-        // Cari kelas di mana guru menjadi wali kelas ATAU ada di jadwal pelajaran kelas tersebut
-        $kelasIds = Kelas::where('guru_id', $teacherId)
-            ->orWhereHas('jadwal', function($q) use ($teacherId) {
-                $q->where('guru_id', $teacherId);
-            })->pluck('id');
+        // 1. Ambil data Materi terbaru
+        $materis = Materi::with(['kelas', 'mataPelajaran'])
+            ->where('guru_id', $guruId)
+            ->latest()
+            ->get();
 
-        $totalKelas = $kelasIds->count();
+        // 2. Ambil data Tugas terbaru beserta relasi pengumpulannya
+        $tugases = Tugas::with(['kelas', 'mataPelajaran', 'submissions'])
+            ->where('guru_id', $guruId)
+            ->latest()
+            ->get();
 
-        // Hitung total siswa unik dari kelas-kelas tersebut
-        $totalSiswa = DB::table('kelas_siswa')
-            ->whereIn('kelas_id', $kelasIds)
-            ->distinct('siswa_id')
-            ->count();
+        // 3. Ekstrak dan gabungkan daftar Kelas unik dari Materi dan Tugas
+        $daftarKelas = $materis->pluck('kelas')
+            ->merge($tugases->pluck('kelas'))
+            ->filter()
+            ->unique('id')
+            ->values();
 
-        // Dummy untuk tugas (akan dihubungkan nanti)
-        $tugasAktif = 0; 
+        // 4. Hitung angka untuk Kartu Statistik (Stat Cards)
+        $totalKelas = $daftarKelas->count();
+        $totalMateri = $materis->count();
+        $tugasAktif = $tugases->filter(fn($t) => Carbon::now()->lte($t->deadline))->count();
+        $totalSubmissions = $tugases->sum(fn($t) => $t->submissions ? $t->submissions->count() : 0);
 
-        return view('teacher.dashboard', compact('totalKelas', 'totalSiswa', 'tugasAktif'));
+        // 5. Kirim semua variabel ke View
+        return view('teacher.dashboard', compact(
+            'materis', 
+            'tugases', 
+            'daftarKelas', 
+            'totalKelas', 
+            'totalMateri', 
+            'tugasAktif', 
+            'totalSubmissions'
+        ));
     }
 }

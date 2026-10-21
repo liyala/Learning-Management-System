@@ -29,26 +29,43 @@
                         <p class="text-md font-semibold text-gray-800 whitespace-pre-line mt-1">{{ $soal->pertanyaan }}</p>
                     </div>
 
-                    <div class="space-y-3 ml-2 md:ml-11">
+<div class="space-y-3 md:ml-11 mt-4">
                         <!-- Opsi A -->
-                        <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-base-200 transition">
-                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="a" class="radio radio-primary radio-sm" />
-                            <span class="text-sm">{{ $soal->opsi_a }}</span>
+                        <label class="cursor-pointer relative block">
+                            <!-- Input radio disembunyikan menggunakan sr-only (Screen Reader Only) -->
+                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="a" class="peer sr-only" required />
+                            <!-- Desain Kotak yang beraksi terhadap "peer-checked" -->
+                            <div class="p-3 md:p-4 border-2 border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 peer-checked:border-primary peer-checked:bg-blue-100 transition-all font-semibold flex gap-3 items-center">
+                                <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-lg shadow-sm peer-checked:bg-primary peer-checked:text-white transition-colors">A</span>
+                                <span class="text-gray-700 peer-checked:text-primary">{{ $soal->opsi_a }}</span>
+                            </div>
                         </label>
+
                         <!-- Opsi B -->
-                        <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-base-200 transition">
-                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="b" class="radio radio-primary radio-sm" />
-                            <span class="text-sm">{{ $soal->opsi_b }}</span>
+                        <label class="cursor-pointer relative block">
+                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="b" class="peer sr-only" />
+                            <div class="p-3 md:p-4 border-2 border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 peer-checked:border-primary peer-checked:bg-blue-100 transition-all font-semibold flex gap-3 items-center">
+                                <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-lg shadow-sm peer-checked:bg-primary peer-checked:text-white transition-colors">B</span>
+                                <span class="text-gray-700 peer-checked:text-primary">{{ $soal->opsi_b }}</span>
+                            </div>
                         </label>
+
                         <!-- Opsi C -->
-                        <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-base-200 transition">
-                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="c" class="radio radio-primary radio-sm" />
-                            <span class="text-sm">{{ $soal->opsi_c }}</span>
+                        <label class="cursor-pointer relative block">
+                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="c" class="peer sr-only" />
+                            <div class="p-3 md:p-4 border-2 border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 peer-checked:border-primary peer-checked:bg-blue-100 transition-all font-semibold flex gap-3 items-center">
+                                <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-lg shadow-sm peer-checked:bg-primary peer-checked:text-white transition-colors">C</span>
+                                <span class="text-gray-700 peer-checked:text-primary">{{ $soal->opsi_c }}</span>
+                            </div>
                         </label>
+
                         <!-- Opsi D -->
-                        <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-base-200 transition">
-                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="d" class="radio radio-primary radio-sm" />
-                            <span class="text-sm">{{ $soal->opsi_d }}</span>
+                        <label class="cursor-pointer relative block">
+                            <input type="radio" name="jawaban[{{ $soal->id }}]" value="d" class="peer sr-only" />
+                            <div class="p-3 md:p-4 border-2 border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 peer-checked:border-primary peer-checked:bg-blue-100 transition-all font-semibold flex gap-3 items-center">
+                                <span class="bg-gray-100 text-gray-500 px-3 py-1 rounded-lg shadow-sm peer-checked:bg-primary peer-checked:text-white transition-colors">D</span>
+                                <span class="text-gray-700 peer-checked:text-primary">{{ $soal->opsi_d }}</span>
+                            </div>
                         </label>
                     </div>
                 </div>
